@@ -1,0 +1,8 @@
+{
+  "peak_layer": 13,
+  "pooling": "mean_pooled",
+  "accuracy": 0.9,
+  "acc_ci_lo": 0.859875,
+  "acc_ci_hi": 0.94,
+  "note": "C.2 / C.3 / D.3 run the behavior probe at this layer."
+}

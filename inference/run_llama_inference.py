@@ -20,15 +20,15 @@ def run_inference(prompts, max_new_tokens: int = 400):
     """Run batch inference on a list of prompts.
 
     Each prompt is a dict with keys:
-        "system"  – system prompt string
-        "message" – user message string
+        "system" – system prompt string
+        "user"   – user message string
 
     Returns a list of (user_message, response) tuples.
     """
     from transformers import AutoTokenizer, AutoModelForCausalLM
     import torch
 
-    model_path = "/models/Llama-3.3-70B-Instruct"
+    model_path = "/models/Llama-3.1-8B-Instruct"
     print(f"Loading tokenizer from {model_path}...")
     tokenizer = AutoTokenizer.from_pretrained(model_path)
 
@@ -43,7 +43,7 @@ def run_inference(prompts, max_new_tokens: int = 400):
     for prompt in prompts:
         messages = [
             {"role": "system", "content": prompt["system"]},
-            {"role": "user", "content": prompt["message"]},
+            {"role": "user", "content": prompt["user"]},
         ]
         text = tokenizer.apply_chat_template(
             messages,
@@ -65,7 +65,7 @@ def run_inference(prompts, max_new_tokens: int = 400):
             outputs[0][inputs["input_ids"].shape[1]:],
             skip_special_tokens=True,
         )
-        results.append((prompt["message"], response))
+        results.append((prompt["user"], response))
 
     return results
 
@@ -80,7 +80,7 @@ def generate_llama_responses_batch(
     cost across all prompts.
 
     Args:
-        prompts:        List of dicts, each with "system" and "message" keys.
+        prompts:        List of dicts, each with "system" and "user" keys.
         max_new_tokens: Maximum tokens to generate per prompt (default 400).
 
     Returns:
@@ -106,7 +106,7 @@ def generate_llama_response(
         The model's response as a plain string.
     """
     results = run_inference.remote(
-        [{"system": system_prompt, "message": user_message}],
+        [{"system": system_prompt, "user": user_message}],
         max_new_tokens=max_new_tokens,
     )
     _, response = results[0]

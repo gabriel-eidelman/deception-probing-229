@@ -1,0 +1,268 @@
+{
+  "peak_layer": 13,
+  "directions": [
+    "logistic",
+    "diffmeans",
+    "pca"
+  ],
+  "headline_direction": "logistic",
+  "limitation": "linear removal of ONE combined protocol direction; nonlinear residual tested in D.2",
+  "by_pooling": {
+    "last_token": {
+      "in_distribution": {
+        "pre": {
+          "eval_mode": "in_distribution",
+          "direction": "(none)",
+          "stage": "pre",
+          "accuracy": 0.93,
+          "acc_ci_lo": 0.895,
+          "acc_ci_hi": 0.965,
+          "majority_chance": 0.625,
+          "var_removed": 0.0,
+          "n_train": 800,
+          "n_test": 200,
+          "pooling": "last_token",
+          "layer": 13
+        },
+        "post": {
+          "logistic": {
+            "eval_mode": "in_distribution",
+            "direction": "logistic",
+            "stage": "post",
+            "accuracy": 0.92,
+            "acc_ci_lo": 0.88,
+            "acc_ci_hi": 0.955,
+            "majority_chance": 0.625,
+            "var_removed": 0.013316259503099937,
+            "drop_vs_pre": 0.010000000000000009,
+            "n_train": 800,
+            "n_test": 200,
+            "pooling": "last_token",
+            "layer": 13
+          },
+          "diffmeans": {
+            "eval_mode": "in_distribution",
+            "direction": "diffmeans",
+            "stage": "post",
+            "accuracy": 0.91,
+            "acc_ci_lo": 0.87,
+            "acc_ci_hi": 0.945,
+            "majority_chance": 0.625,
+            "var_removed": 0.1244060314094127,
+            "drop_vs_pre": 0.020000000000000018,
+            "n_train": 800,
+            "n_test": 200,
+            "pooling": "last_token",
+            "layer": 13
+          },
+          "pca": {
+            "eval_mode": "in_distribution",
+            "direction": "pca",
+            "stage": "post",
+            "accuracy": 0.87,
+            "acc_ci_lo": 0.8248749999999999,
+            "acc_ci_hi": 0.915,
+            "majority_chance": 0.625,
+            "var_removed": 0.15740091859529326,
+            "drop_vs_pre": 0.06000000000000005,
+            "n_train": 800,
+            "n_test": 200,
+            "pooling": "last_token",
+            "layer": 13
+          }
+        }
+      },
+      "transfer": {
+        "pre": {
+          "eval_mode": "transfer",
+          "direction": "(none)",
+          "stage": "pre",
+          "accuracy": 0.75,
+          "acc_ci_lo": 0.716625,
+          "acc_ci_hi": 0.785,
+          "majority_chance": 0.575,
+          "var_removed": 0.0,
+          "n_train": 400,
+          "n_test": 600,
+          "pooling": "last_token",
+          "layer": 13
+        },
+        "post": {
+          "logistic": {
+            "eval_mode": "transfer",
+            "direction": "logistic",
+            "stage": "post",
+            "accuracy": 0.74,
+            "acc_ci_lo": 0.705,
+            "acc_ci_hi": 0.775,
+            "majority_chance": 0.575,
+            "var_removed": 0.00799985633755844,
+            "drop_vs_pre": 0.010000000000000009,
+            "n_train": 400,
+            "n_test": 600,
+            "pooling": "last_token",
+            "layer": 13
+          },
+          "diffmeans": {
+            "eval_mode": "transfer",
+            "direction": "diffmeans",
+            "stage": "post",
+            "accuracy": 0.7316666666666667,
+            "acc_ci_lo": 0.6966666666666667,
+            "acc_ci_hi": 0.7666666666666667,
+            "majority_chance": 0.575,
+            "var_removed": 0.15250019976052417,
+            "drop_vs_pre": 0.018333333333333313,
+            "n_train": 400,
+            "n_test": 600,
+            "pooling": "last_token",
+            "layer": 13
+          },
+          "pca": {
+            "eval_mode": "transfer",
+            "direction": "pca",
+            "stage": "post",
+            "accuracy": 0.7166666666666667,
+            "acc_ci_lo": 0.68,
+            "acc_ci_hi": 0.7516666666666667,
+            "majority_chance": 0.575,
+            "var_removed": 0.18891681380766423,
+            "drop_vs_pre": 0.033333333333333326,
+            "n_train": 400,
+            "n_test": 600,
+            "pooling": "last_token",
+            "layer": 13
+          }
+        }
+      }
+    },
+    "mean_pooled": {
+      "in_distribution": {
+        "pre": {
+          "eval_mode": "in_distribution",
+          "direction": "(none)",
+          "stage": "pre",
+          "accuracy": 0.9,
+          "acc_ci_lo": 0.85,
+          "acc_ci_hi": 0.94,
+          "majority_chance": 0.625,
+          "var_removed": 0.0,
+          "n_train": 800,
+          "n_test": 200,
+          "pooling": "mean_pooled",
+          "layer": 13
+        },
+        "post": {
+          "logistic": {
+            "eval_mode": "in_distribution",
+            "direction": "logistic",
+            "stage": "post",
+            "accuracy": 0.895,
+            "acc_ci_lo": 0.845,
+            "acc_ci_hi": 0.935,
+            "majority_chance": 0.625,
+            "var_removed": 0.023763732595058915,
+            "drop_vs_pre": 0.0050000000000000044,
+            "n_train": 800,
+            "n_test": 200,
+            "pooling": "mean_pooled",
+            "layer": 13
+          },
+          "diffmeans": {
+            "eval_mode": "in_distribution",
+            "direction": "diffmeans",
+            "stage": "post",
+            "accuracy": 0.895,
+            "acc_ci_lo": 0.85,
+            "acc_ci_hi": 0.935,
+            "majority_chance": 0.625,
+            "var_removed": 0.07735250132150037,
+            "drop_vs_pre": 0.0050000000000000044,
+            "n_train": 800,
+            "n_test": 200,
+            "pooling": "mean_pooled",
+            "layer": 13
+          },
+          "pca": {
+            "eval_mode": "in_distribution",
+            "direction": "pca",
+            "stage": "post",
+            "accuracy": 0.88,
+            "acc_ci_lo": 0.835,
+            "acc_ci_hi": 0.925,
+            "majority_chance": 0.625,
+            "var_removed": 0.09191253181025909,
+            "drop_vs_pre": 0.020000000000000018,
+            "n_train": 800,
+            "n_test": 200,
+            "pooling": "mean_pooled",
+            "layer": 13
+          }
+        }
+      },
+      "transfer": {
+        "pre": {
+          "eval_mode": "transfer",
+          "direction": "(none)",
+          "stage": "pre",
+          "accuracy": 0.715,
+          "acc_ci_lo": 0.6783333333333333,
+          "acc_ci_hi": 0.75,
+          "majority_chance": 0.575,
+          "var_removed": 0.0,
+          "n_train": 400,
+          "n_test": 600,
+          "pooling": "mean_pooled",
+          "layer": 13
+        },
+        "post": {
+          "logistic": {
+            "eval_mode": "transfer",
+            "direction": "logistic",
+            "stage": "post",
+            "accuracy": 0.7133333333333334,
+            "acc_ci_lo": 0.675,
+            "acc_ci_hi": 0.7483333333333333,
+            "majority_chance": 0.575,
+            "var_removed": 0.008573005139181796,
+            "drop_vs_pre": 0.0016666666666665941,
+            "n_train": 400,
+            "n_test": 600,
+            "pooling": "mean_pooled",
+            "layer": 13
+          },
+          "diffmeans": {
+            "eval_mode": "transfer",
+            "direction": "diffmeans",
+            "stage": "post",
+            "accuracy": 0.725,
+            "acc_ci_lo": 0.6899583333333332,
+            "acc_ci_hi": 0.76,
+            "majority_chance": 0.575,
+            "var_removed": 0.08672547080109735,
+            "drop_vs_pre": -0.010000000000000009,
+            "n_train": 400,
+            "n_test": 600,
+            "pooling": "mean_pooled",
+            "layer": 13
+          },
+          "pca": {
+            "eval_mode": "transfer",
+            "direction": "pca",
+            "stage": "post",
+            "accuracy": 0.7083333333333334,
+            "acc_ci_lo": 0.67,
+            "acc_ci_hi": 0.7433333333333333,
+            "majority_chance": 0.575,
+            "var_removed": 0.10315360543571483,
+            "drop_vs_pre": 0.006666666666666599,
+            "n_train": 400,
+            "n_test": 600,
+            "pooling": "mean_pooled",
+            "layer": 13
+          }
+        }
+      }
+    }
+  }
+}

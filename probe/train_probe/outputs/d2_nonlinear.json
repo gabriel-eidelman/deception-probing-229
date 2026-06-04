@@ -1,0 +1,233 @@
+{
+  "peak_layer": 13,
+  "mlp_kw": {
+    "hidden_layer_sizes": [
+      64
+    ],
+    "alpha": 1.0,
+    "max_iter": 2000,
+    "early_stopping": false
+  },
+  "by_pooling": {
+    "last_token": {
+      "transfer": [
+        {
+          "eval_mode": "transfer",
+          "probe": "linear",
+          "stage": "pre",
+          "accuracy": 0.75,
+          "acc_ci_lo": 0.716625,
+          "acc_ci_hi": 0.785,
+          "majority_chance": 0.575,
+          "n_train": 400,
+          "n_test": 600,
+          "pooling": "last_token",
+          "layer": 13
+        },
+        {
+          "eval_mode": "transfer",
+          "probe": "linear",
+          "stage": "post",
+          "accuracy": 0.74,
+          "acc_ci_lo": 0.705,
+          "acc_ci_hi": 0.775,
+          "majority_chance": 0.575,
+          "n_train": 400,
+          "n_test": 600,
+          "pooling": "last_token",
+          "layer": 13
+        },
+        {
+          "eval_mode": "transfer",
+          "probe": "mlp",
+          "stage": "pre",
+          "accuracy": 0.7833333333333333,
+          "acc_ci_lo": 0.7532916666666666,
+          "acc_ci_hi": 0.8166666666666667,
+          "majority_chance": 0.575,
+          "n_train": 400,
+          "n_test": 600,
+          "pooling": "last_token",
+          "layer": 13
+        },
+        {
+          "eval_mode": "transfer",
+          "probe": "mlp",
+          "stage": "post",
+          "accuracy": 0.78,
+          "acc_ci_lo": 0.7483333333333333,
+          "acc_ci_hi": 0.8116666666666666,
+          "majority_chance": 0.575,
+          "n_train": 400,
+          "n_test": 600,
+          "pooling": "last_token",
+          "layer": 13
+        }
+      ],
+      "in_distribution": [
+        {
+          "eval_mode": "in_distribution",
+          "probe": "linear",
+          "stage": "pre",
+          "accuracy": 0.93,
+          "acc_ci_lo": 0.895,
+          "acc_ci_hi": 0.965,
+          "majority_chance": 0.625,
+          "n_train": 800,
+          "n_test": 200,
+          "pooling": "last_token",
+          "layer": 13
+        },
+        {
+          "eval_mode": "in_distribution",
+          "probe": "linear",
+          "stage": "post",
+          "accuracy": 0.92,
+          "acc_ci_lo": 0.88,
+          "acc_ci_hi": 0.955,
+          "majority_chance": 0.625,
+          "n_train": 800,
+          "n_test": 200,
+          "pooling": "last_token",
+          "layer": 13
+        },
+        {
+          "eval_mode": "in_distribution",
+          "probe": "mlp",
+          "stage": "pre",
+          "accuracy": 0.905,
+          "acc_ci_lo": 0.86,
+          "acc_ci_hi": 0.945,
+          "majority_chance": 0.625,
+          "n_train": 800,
+          "n_test": 200,
+          "pooling": "last_token",
+          "layer": 13
+        },
+        {
+          "eval_mode": "in_distribution",
+          "probe": "mlp",
+          "stage": "post",
+          "accuracy": 0.905,
+          "acc_ci_lo": 0.86,
+          "acc_ci_hi": 0.945,
+          "majority_chance": 0.625,
+          "n_train": 800,
+          "n_test": 200,
+          "pooling": "last_token",
+          "layer": 13
+        }
+      ]
+    },
+    "mean_pooled": {
+      "transfer": [
+        {
+          "eval_mode": "transfer",
+          "probe": "linear",
+          "stage": "pre",
+          "accuracy": 0.715,
+          "acc_ci_lo": 0.6783333333333333,
+          "acc_ci_hi": 0.75,
+          "majority_chance": 0.575,
+          "n_train": 400,
+          "n_test": 600,
+          "pooling": "mean_pooled",
+          "layer": 13
+        },
+        {
+          "eval_mode": "transfer",
+          "probe": "linear",
+          "stage": "post",
+          "accuracy": 0.7133333333333334,
+          "acc_ci_lo": 0.675,
+          "acc_ci_hi": 0.7483333333333333,
+          "majority_chance": 0.575,
+          "n_train": 400,
+          "n_test": 600,
+          "pooling": "mean_pooled",
+          "layer": 13
+        },
+        {
+          "eval_mode": "transfer",
+          "probe": "mlp",
+          "stage": "pre",
+          "accuracy": 0.7516666666666667,
+          "acc_ci_lo": 0.715,
+          "acc_ci_hi": 0.785,
+          "majority_chance": 0.575,
+          "n_train": 400,
+          "n_test": 600,
+          "pooling": "mean_pooled",
+          "layer": 13
+        },
+        {
+          "eval_mode": "transfer",
+          "probe": "mlp",
+          "stage": "post",
+          "accuracy": 0.7533333333333333,
+          "acc_ci_lo": 0.7166666666666667,
+          "acc_ci_hi": 0.7883333333333333,
+          "majority_chance": 0.575,
+          "n_train": 400,
+          "n_test": 600,
+          "pooling": "mean_pooled",
+          "layer": 13
+        }
+      ],
+      "in_distribution": [
+        {
+          "eval_mode": "in_distribution",
+          "probe": "linear",
+          "stage": "pre",
+          "accuracy": 0.9,
+          "acc_ci_lo": 0.85,
+          "acc_ci_hi": 0.94,
+          "majority_chance": 0.625,
+          "n_train": 800,
+          "n_test": 200,
+          "pooling": "mean_pooled",
+          "layer": 13
+        },
+        {
+          "eval_mode": "in_distribution",
+          "probe": "linear",
+          "stage": "post",
+          "accuracy": 0.895,
+          "acc_ci_lo": 0.845,
+          "acc_ci_hi": 0.935,
+          "majority_chance": 0.625,
+          "n_train": 800,
+          "n_test": 200,
+          "pooling": "mean_pooled",
+          "layer": 13
+        },
+        {
+          "eval_mode": "in_distribution",
+          "probe": "mlp",
+          "stage": "pre",
+          "accuracy": 0.905,
+          "acc_ci_lo": 0.86,
+          "acc_ci_hi": 0.9401249999999999,
+          "majority_chance": 0.625,
+          "n_train": 800,
+          "n_test": 200,
+          "pooling": "mean_pooled",
+          "layer": 13
+        },
+        {
+          "eval_mode": "in_distribution",
+          "probe": "mlp",
+          "stage": "post",
+          "accuracy": 0.905,
+          "acc_ci_lo": 0.86,
+          "acc_ci_hi": 0.9401249999999999,
+          "majority_chance": 0.625,
+          "n_train": 800,
+          "n_test": 200,
+          "pooling": "mean_pooled",
+          "layer": 13
+        }
+      ]
+    }
+  }
+}

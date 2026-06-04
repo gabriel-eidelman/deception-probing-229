@@ -1,0 +1,5 @@
+.env
+evaluation/eval_results/
+outputs/grades_partial.pkl
+outputs/payload_raw.pkl
+outputs/activations/

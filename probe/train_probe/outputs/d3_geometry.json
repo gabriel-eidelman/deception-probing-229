@@ -1,0 +1,30 @@
+{
+  "peak_layer": 13,
+  "strategy_a": "role_based",
+  "strategy_b": "instrumental",
+  "n_perm": 200,
+  "by_pooling": {
+    "last_token": {
+      "pooling": "last_token",
+      "layer": 13,
+      "cosine_raw": 0.09750139394353186,
+      "cosine_std": 0.11493530388366881,
+      "null_abs_cos_lo": 0.0014863978408801242,
+      "null_abs_cos_hi": 0.07362884369467597,
+      "above_null": true,
+      "n_A": 400,
+      "n_B": 300
+    },
+    "mean_pooled": {
+      "pooling": "mean_pooled",
+      "layer": 13,
+      "cosine_raw": 0.30601434276892053,
+      "cosine_std": 0.33050391716016125,
+      "null_abs_cos_lo": 0.0006703855430485786,
+      "null_abs_cos_hi": 0.054599152274829185,
+      "above_null": true,
+      "n_A": 400,
+      "n_B": 300
+    }
+  }
+}

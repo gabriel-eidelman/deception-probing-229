@@ -1,0 +1,17 @@
+eval_mode,probe,stage,accuracy,acc_ci_lo,acc_ci_hi,majority_chance,n_train,n_test,pooling,layer
+transfer,linear,pre,0.75,0.716625,0.785,0.575,400,600,last_token,13
+transfer,linear,post,0.74,0.705,0.775,0.575,400,600,last_token,13
+transfer,mlp,pre,0.7833333333333333,0.7532916666666666,0.8166666666666667,0.575,400,600,last_token,13
+transfer,mlp,post,0.78,0.7483333333333333,0.8116666666666666,0.575,400,600,last_token,13
+in_distribution,linear,pre,0.93,0.895,0.965,0.625,800,200,last_token,13
+in_distribution,linear,post,0.92,0.88,0.955,0.625,800,200,last_token,13
+in_distribution,mlp,pre,0.905,0.86,0.945,0.625,800,200,last_token,13
+in_distribution,mlp,post,0.905,0.86,0.945,0.625,800,200,last_token,13
+transfer,linear,pre,0.715,0.6783333333333333,0.75,0.575,400,600,mean_pooled,13
+transfer,linear,post,0.7133333333333334,0.675,0.7483333333333333,0.575,400,600,mean_pooled,13
+transfer,mlp,pre,0.7516666666666667,0.715,0.785,0.575,400,600,mean_pooled,13
+transfer,mlp,post,0.7533333333333333,0.7166666666666667,0.7883333333333333,0.575,400,600,mean_pooled,13
+in_distribution,linear,pre,0.9,0.85,0.94,0.625,800,200,mean_pooled,13
+in_distribution,linear,post,0.895,0.845,0.935,0.625,800,200,mean_pooled,13
+in_distribution,mlp,pre,0.905,0.86,0.9401249999999999,0.625,800,200,mean_pooled,13
+in_distribution,mlp,post,0.905,0.86,0.9401249999999999,0.625,800,200,mean_pooled,13
