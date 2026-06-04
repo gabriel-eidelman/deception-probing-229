@@ -1,25 +1,4 @@
-"""
-run_c2_transfer.py — C.2 (confound-held-fixed transfer).
-
-Run AFTER run_pipeline.py (C.1), from probe/train_probe:
-    python run_c2_transfer.py
-
-Trains the behavior probe on the TRAIN cell (role_based x prosocial) and tests
-transfer onto the TEST cells (instructed/instrumental x self_serving), at the
-peak layer C.1 selected, for each pooling method.
-
-  Transfers  -> the probe found something beyond the training cell's signature.
-  Collapses  -> it was riding the confound.
-
-CAVEAT (printed and written to the result file): the train->test step crosses a
-strategy boundary AND a stake boundary simultaneously (the two are partially
-collinear in this data), so a failure cannot be attributed to one specifically.
-That is exactly what C.3 (orthogonalization) is for.
-
-Produces under ./outputs/:
-    c2_transfer.csv     one row per (pooling, test condition)
-    c2_transfer.json    full results + the census of every cell used
-"""
+"""C.2 confound-held-fixed transfer: train on one cell, test generalization to others."""
 from __future__ import annotations
 import json
 import warnings

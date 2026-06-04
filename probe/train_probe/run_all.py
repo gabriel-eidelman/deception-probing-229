@@ -1,26 +1,4 @@
-"""
-run_all.py — run the full probe competition end to end, in the order the plan
-requires (order matters: C.1 selects the peak layer everything else runs at).
-
-    cd probe/train_probe
-    python run_all.py
-
-Sequence:
-    report_census      (E.2 behavioral backbone; independent of probes)
-    C.1 run_pipeline   (decodability-by-factor; writes peak_layer.json)
-    C.2 run_c2         (confound-held-fixed transfer)
-    C.3 run_c3         (orthogonalization — decisive test)
-    D.2 run_d2         (nonlinear check)
-    D.3 run_d3         (geometry)
-
-D.4 (bootstrap CIs) is not a separate stage — every accuracy/transfer number in
-every stage already carries a percentile bootstrap CI via probes.py /
-cells.accuracy_ci. With these sample sizes the CIs are wide by design; report
-them, don't lean on point estimates.
-
-Each stage is imported and called in-process so a failure stops the chain with
-a clear message rather than silently skipping downstream work.
-"""
+"""Run the full probe pipeline in required order (census → C.1 → C.2 → C.3 → D.2 → D.3)."""
 from __future__ import annotations
 import sys
 import traceback

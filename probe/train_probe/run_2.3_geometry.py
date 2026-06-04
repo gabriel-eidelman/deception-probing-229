@@ -1,37 +1,4 @@
-"""
-run_d3_geometry.py — D.3 (geometry): one construct or two?
-
-Run AFTER run_pipeline.py (C.1), from probe/train_probe:
-    python run_d3_geometry.py
-
-Trains TWO behavior probes at the peak layer:
-    probe_A: on role_based  cells
-    probe_B: on instrumental cells
-and reports the cosine similarity between their weight vectors.
-
-  cos ~ 1   -> the two strategies induce the SAME behavior direction:
-               one construct, consistent across elicitation strategy.
-  cos ~ 0   -> near-orthogonal: the "behavior" probe is largely strategy-
-               specific (two different things wearing one label).
-
-Because both probes are pipelines (StandardScaler + LogReg), the weight vector
-lives in standardized space. We compare in that space, and — since the two
-probes are fit on different cells and therefore different scalers — we also
-report the cosine after mapping both back to RAW activation space
-(w_raw = w_std / sigma), which is the scaler-invariant comparison and the one
-to lead with.
-
-A permutation null (shuffle behavior labels, refit, recompute cosine) gives a
-reference for "how aligned would two probes look by chance at this sample size."
-
-Strategy here means the elicitation strategy (role_based / instrumental); we do
-NOT condition on stake, matching the plan's "role_based-trained vs
-instrumental-trained behavior probe vectors" phrasing.
-
-Produces under ./outputs/:
-    d3_geometry.csv     one row per pooling: cosine (std + raw) + null band
-    d3_geometry.json
-"""
+"""D.3 geometry: cosine similarity between behavior probes trained on disjoint strategy cells."""
 from __future__ import annotations
 import json
 import warnings

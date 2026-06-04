@@ -1,9 +1,4 @@
-"""
-config.py — central configuration for C.1 (decodability-by-factor).
-
-Everything downstream (C.2, C.3, D.3) should import SEED and the split path
-from here so the held-out test set is identical across phases.
-"""
+"""Central configuration: paths, seed, and split location shared across all phases."""
 from pathlib import Path
 
 # ──────────────────────────────────────────────────────────────────────

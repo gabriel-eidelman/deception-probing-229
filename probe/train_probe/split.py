@@ -1,13 +1,5 @@
 """
-split.py — make ONE stratified train/test split, persisted to disk so C.2,
-C.3, and D.3 reuse the exact same held-out test set.
-
-Stratification is JOINT over (behavior, strategy, stake_structure) so that rare
-factorial cells are not lost from either side.  When a joint cell is too small
-for sklearn's stratified split (a class with a single member can't be split),
-we merge singleton cells into a pooled "rare" stratum and split that pooled
-group with the same ratio — every example still lands in exactly one of train
-or test, and no example is dropped.
+Make one stratified train/test split, persisted to disk
 """
 from __future__ import annotations
 import json

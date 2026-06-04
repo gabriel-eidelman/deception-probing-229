@@ -1,7 +1,4 @@
-"""
-plotting.py — accuracy-vs-layer plots. One figure per pooling method, three
-lines (behavior / strategy / stake_structure) with bootstrap CI bands.
-"""
+"""Accuracy-vs-layer plots per pooling method with bootstrap CI bands."""
 from __future__ import annotations
 import matplotlib
 matplotlib.use("Agg")

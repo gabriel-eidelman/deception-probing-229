@@ -1,14 +1,4 @@
-"""
-Pilot inter-rater reliability experiment for the LLM-as-judge grading pipeline.
-
-For each scenario in deception_elecitation.py:
-  1. Generate one response (gpt-4o, temp=0.7).
-  2. Grade that response N_RATINGS times independently (gpt-4o, temp=1.0).
-  3. Compute agreement statistics across the 3x3 factorial cells.
-
-Outputs a JSON results file and a printed summary report.
-Run: modal run --detach pilot_interrater_reliability.py
-"""
+"""Pilot inter-rater reliability experiment for the LLM-as-judge grading pipeline."""
 
 import os
 import re

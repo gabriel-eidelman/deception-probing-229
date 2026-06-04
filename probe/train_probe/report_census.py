@@ -1,20 +1,4 @@
-"""
-report_census.py — the census as a standalone behavioral result (Phase E.2).
-
-Run any time after Phase B (does not need the probes):
-    python report_census.py
-
-The plan's central behavioral finding is that natural elicitation cannot
-populate role_based x self_serving deception because the model resists it —
-that cell is honest-dominated BY BEHAVIOR, not by sampling. This script makes
-that finding legible: it tabulates, for every (strategy x stake) cell, the
-honest/deceptive counts from the FROZEN grader labels, and flags the cells the
-model refused to fill.
-
-Produces under ./outputs/:
-    census.csv      one row per (strategy, stake) cell, honest/deceptive counts
-    census.json     same, plus the flagged "model-resistant" cells
-"""
+"""Tabulate honest/deceptive counts per (strategy, stake) cell and flag model-resistant cells."""
 from __future__ import annotations
 import json
 import numpy as np

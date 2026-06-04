@@ -1,29 +1,4 @@
-"""
-run_d2_nonlinear.py — D.2 (nonlinear check).
-
-Run AFTER run_pipeline.py (C.1), from probe/train_probe:
-    python run_d2_nonlinear.py
-
-D.1's claim is "after removing the LINEAR protocol subspace." A nonlinear
-residual could remain. D.2 tests for that by training an MLP behavior probe:
-
-  - on the raw (standardized) features                      -> MLP pre
-  - on features with the linear protocol direction removed  -> MLP post
-
-Read against C.3's linear probe:
-  * If the LINEAR probe vanished after orthogonalization but the MLP recovers
-    behavior on the residual -> a NONLINEAR protocol/behavior signal survives
-    linear removal; the linear-only caveat (D.1) is load-bearing.
-  * If the MLP also vanishes on the residual -> linear removal was sufficient;
-    no meaningful nonlinear confound remains.
-
-Evaluated in TRANSFER mode (train cell -> self_serving cells), the strongest
-setting; in-distribution is also reported for context.
-
-Produces under ./outputs/:
-    d2_nonlinear.csv     pooling x eval_mode x {linear,mlp} x {pre,post}
-    d2_nonlinear.json
-"""
+"""D.2 nonlinear check: MLP probe before and after linear protocol direction removal."""
 from __future__ import annotations
 import json
 import warnings

@@ -1,19 +1,4 @@
-"""
-run_pipeline.py — C.1 (decodability-by-factor), end to end.
-
-Run:
-    cd probe/train_probe
-    python run_pipeline.py
-
-Produces under ./outputs/:
-    split.json                       persisted train/test split + seed
-    results.csv                      label x layer x pooling: accuracy + CIs
-    peak_layer.json                  selected peak layer for the behavior probe
-    accuracy_vs_layer_{pooling}.png  per-pooling accuracy-vs-layer plots
-
-The split is made ONCE and reused by C.2 / C.3 / D.3 (they import config.SEED
-and read outputs/split.json).
-"""
+"""C.1 end-to-end decodability-by-factor pipeline: split, probe training, and layer plots."""
 from __future__ import annotations
 import json
 import warnings

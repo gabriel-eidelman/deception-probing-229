@@ -1,22 +1,4 @@
-"""
-cells.py — shared machinery for the transfer / orthogonalization / geometry
-experiments (C.2, C.3, D.2, D.3).
-
-C.1 (run_pipeline.py) uses ONE random stratified split persisted to
-outputs/split.json. The later experiments do NOT use that split: they are
-*cell-based*. C.2 trains on one factorial cell and tests on others; D.3 trains
-two probes on disjoint cells. So the masks here are built from the (strategy,
-stake_structure) labels, not from split.json. That divergence is intentional
-and is the whole point of the confound-held-fixed design.
-
-This module is the single place that:
-  - names the Path-A cells (TRAIN vs TEST),
-  - turns cell membership into boolean masks over activation row order,
-  - loads the peak layer chosen by C.1,
-  - defines the three "combined protocol direction" estimators for C.3,
-  - reuses probes.py for fitting and the same percentile-bootstrap CI
-    convention C.1 used, so every accuracy number in the paper is comparable.
-"""
+"""Shared cell masks and peak-layer loading for transfer, orthogonalization, and geometry runs."""
 from __future__ import annotations
 import json
 import numpy as np

@@ -1,39 +1,4 @@
-"""
-run_c3_orthogonalize.py — C.3 (orthogonalization), the decisive causal test.
-
-Run AFTER run_pipeline.py (C.1), from probe/train_probe:
-    python run_c3_orthogonalize.py
-
-Procedure, at C.1's peak layer, per pooling method:
-  1. Standardize features (fit scaler on the in-distribution train rows only).
-  2. Estimate the SINGLE combined protocol direction in standardized space.
-     The plan is explicit this is ONE combined direction, not two separable
-     factors (strategy/stake are partially collinear). We estimate it three
-     ways and report all three:
-        logistic  (headline) — leading direction of a protocol-classifier
-        diffmeans (robustness) — mean(train cell) - mean(rest)
-        pca       (robustness) — top axis of between-cell scatter
-  3. Project that direction out of BOTH train and test features.
-  4. Refit the behavior probe on the residual; compare accuracy before vs after.
-
-     Survives orthogonalization -> evidence for a deception representation not
-                                    reducible to the protocol.
-     Vanishes (-> majority/chance) -> the behavior signal WAS the protocol
-                                    signal in costume.
-
-This is evaluated two ways for the held-out test set:
-  (a) IN-DISTRIBUTION: the C.1 persisted random split (same rows C.1 scored
-      behavior on) — "does behavior survive within the training distribution?"
-  (b) TRANSFER: train cell -> self_serving cells (the C.2 split) — "does what
-      survives also transfer?"  This is the strongest single number.
-
-LIMITATIONS baked into the output (D.1): removal is LINEAR and removes ONE
-combined direction. A nonlinear residual could remain — that's what D.2 tests.
-
-Produces under ./outputs/:
-    c3_orthogonalize.csv    rows: pooling x eval_mode x direction x {pre,post}
-    c3_orthogonalize.json   full results incl. the residual variance removed
-"""
+"""C.3 orthogonalization: remove the protocol direction and re-evaluate the behavior probe."""
 from __future__ import annotations
 import json
 import warnings

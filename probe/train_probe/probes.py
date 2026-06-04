@@ -1,9 +1,4 @@
-"""
-probes.py — fit a standardized logistic-regression probe (binary for behavior,
-multinomial for strategy/stake), choosing L2 strength by stratified k-fold CV on
-the TRAIN split only, then evaluate on the held-out TEST split with bootstrap CIs
-for overall accuracy and per-class accuracy.
-"""
+"""Logistic regression probes with CV-tuned L2 and bootstrap CIs on the held-out test split."""
 from __future__ import annotations
 import numpy as np
 from sklearn.linear_model import LogisticRegression

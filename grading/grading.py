@@ -1,5 +1,4 @@
-"""Shared LLM-as-judge grading. Imported by both the inter-rater
-reliability study and the probe-labeling pipeline."""
+"""LLM-as-judge grading shared by the inter-rater study and probe-labeling pipeline."""
 import re
 import time
 from openai import OpenAI

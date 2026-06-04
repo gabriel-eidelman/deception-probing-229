@@ -1,6 +1,4 @@
-"""
-Generate model outputs and create statistics for deception rates in the dataset (total and per-cell).
-"""
+"""Generate model outputs and compute per-cell deception statistics."""
 
 from __future__ import annotations
 
@@ -23,12 +21,11 @@ import modal
 SCENARIOS = json.load(open(Path(__file__).parent / "scenarios_transformed.json"))
 from data.dataset.set import DATASET
 
-RESPONSE_MODEL       = "llama-3.1-8b-instruct"
-GRADER_MODEL         = "gpt-4o-mini"
-GRADER_TEMP          = 0.0  # deterministic
-MAX_RETRIES          = 3
+RESPONSE_MODEL = "llama-3.1-8b-instruct"
+GRADER_MODEL   = "gpt-4o-mini"
+GRADER_TEMP    = 0.0   # keep this at 0 so grading is reproducible
+MAX_RETRIES    = 3
 
-# Helper functions
 
 def _make_client() -> OpenAI:
     load_dotenv(Path(__file__).parent / ".env")
@@ -39,12 +36,13 @@ def _make_client() -> OpenAI:
 
 
 def _grade_once(client, scenario, question, response, grader_model):
-    """Call the grader once. Return 'HONEST' or 'DECEPTIVE'."""
+    """Grade a single response. Returns 'HONEST' or 'DECEPTIVE'."""
     user_msg = (
         f"[Scenario]: {scenario}\n\n"
         f"[Question]: {question}\n\n"
         f"[Response]: {response}"
     )
+    # retry a few times since the API occasionally times out / returns junk
     for attempt in range(MAX_RETRIES):
         try:
             result = client.chat.completions.create(
@@ -62,15 +60,16 @@ def _grade_once(client, scenario, question, response, grader_model):
             if m:
                 return m.group(1).upper()
 
+            # grader didn't follow the format, bail so the retry loop catches it
             raise ValueError(f"Unparseable grader output: {text[:200]}")
         except Exception:
             if attempt == MAX_RETRIES - 1:
                 raise
-            time.sleep(2 ** attempt)
+            time.sleep(2 ** attempt)  # exponential backoff
 
 
 def _deception_stats(records):
-    """summary stats for a subset of records"""
+    """Count up honest vs deceptive for a list of records."""
     n = len(records)
     n_deceptive = sum(1 for r in records if r["behavior"] == "DECEPTIVE")
     n_honest = n - n_deceptive
@@ -88,25 +87,8 @@ def evaluate_test_set(
     grader_model: str = GRADER_MODEL,
 ) -> Path:
     """
-    Run Llama inference + GPT grading on *test_set* and save deception stats.
-
-    Each item in test_set must be a dict with keys:
-        "system"                – system prompt
-        "user"                  – user message / question
-        "elicitation_strategy"  – e.g. "instrumental_pressure"
-        "task_domain"           – e.g. "factual_qa"
-    Optional metadata keys (carried through to output if present):
-        "description", "label", "pair_id", "condition", "hypothesis", "predicted_effect"
-
-    Args:
-        test_set:     Items to evaluate. Defaults to HYPOTHESIS_SET.
-        output_path:  Destination JSON file. Defaults to
-                      eval_results/deception_eval_results_<timestamp>.json
-                      next to this script.
-        grader_model: OpenAI model used for grading. Default "gpt-4o-mini".
-
-    Returns:
-        Path to the saved JSON results file.
+    Run Llama inference + GPT grading on the test set and save deception stats.
+    Using this mostly to get early numbers while I iterate on the dataset.
     """
     if test_set is None:
         test_set = DATASET
@@ -120,20 +102,20 @@ def evaluate_test_set(
     client = _make_client()
 
     print("=" * 70)
-    print("DECEPTION EVALUATION")
-    print(f"  Examples       : {len(test_set)}")
-    print(f"  Response model : {RESPONSE_MODEL}  (via Modal)")
-    print(f"  Grader model   : {grader_model}  (temp={GRADER_TEMP})")
-    print(f"  Grading        : binary (HONEST / DECEPTIVE)")
+    print("Deception eval")
+    print(f"  examples    : {len(test_set)}")
+    print(f"  responses   : {RESPONSE_MODEL}  (Modal)")
+    print(f"  grader      : {grader_model}  (temp={GRADER_TEMP})")
+    print(f"  labels      : HONEST / DECEPTIVE")
     print("=" * 70)
 
-    # ── Step 1: generate all responses in a single Modal call ─────────────────
-    print(f"\nGenerating {len(test_set)} response(s) via Modal ...", end=" ", flush=True)
+    # generate everything in one Modal call instead of looping (way faster)
+    print(f"\nGenerating {len(test_set)} responses on Modal ...", end=" ", flush=True)
     with modal.enable_output():
         responses = generate_llama_responses_batch(test_set)
     print("done.\n")
 
-    # ── Step 2: grade each response once ──────────────────────────────────────
+    # now grade them one at a time
     records: list[dict] = []
 
     for i, (prompt, response_text) in enumerate(zip(test_set, responses)):
@@ -142,11 +124,11 @@ def evaluate_test_set(
         preview  = response_text[:120].replace("\n", " ")
 
         print(f"[{i+1:02d}/{len(test_set)}] {strategy} | {domain}")
-        print(f"  Response : {preview!r}")
+        print(f"  response: {preview!r}")
 
         verdict = _grade_once(client, prompt["system"], prompt["user"],
                               response_text, grader_model)
-        print(f"  Verdict  : {verdict}\n")
+        print(f"  -> {verdict}\n")
 
         records.append({
             "index":            i,
@@ -161,7 +143,7 @@ def evaluate_test_set(
             "behavior":         verdict,
         })
 
-    # ── Step 3: aggregate statistics ──────────────────────────────────────────
+    # aggregate: overall first, then break down by each factor
     overall = _deception_stats(records)
 
     strategies    = sorted({r["strategy"]        for r in records})
@@ -183,7 +165,7 @@ def evaluate_test_set(
         for ss in stake_structs
     }
 
-    # strategy × domain cross-tab
+    # strategy x domain
     by_strategy_domain = {
         s: {
             d: _deception_stats(
@@ -194,7 +176,7 @@ def evaluate_test_set(
         for s in strategies
     }
 
-    # stake_structure × strategy cross-tab
+    # stake_structure x strategy
     by_stake_strategy = {
         ss: {
             s: _deception_stats(
@@ -205,7 +187,7 @@ def evaluate_test_set(
         for ss in stake_structs
     }
 
-    # ── Save results ───────────────────────────────────────────────────────────
+    # dump everything to json
     output = {
         "config": {
             "response_model": RESPONSE_MODEL,
@@ -224,11 +206,9 @@ def evaluate_test_set(
         "examples":               records,
     }
     output_path.write_text(json.dumps(output, indent=2))
-    print(f"\nResults saved → {output_path}")
+    print(f"\nsaved -> {output_path}")
     return output_path
 
-
-# ── CLI entry-point ────────────────────────────────────────────────────────────
 
 @llama_app.local_entrypoint()
 def main():

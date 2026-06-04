@@ -1,13 +1,4 @@
-"""
-data_loading.py — load the frozen grader labels from scored_responses.csv and
-the layerwise activation matrices from Phase B, aligned row-for-row by
-response_id.
-
-The single coupling point with Phase B is the activation file scheme described
-in config.py.  If Phase B saved activations differently (e.g. one big .npz, or
-torch .pt), reimplement load_layer_matrix() / load_response_ids() / detect_layers()
-here and nothing else changes.
-"""
+"""Load grader labels and layerwise activation matrices aligned by response_id."""
 from __future__ import annotations
 import re
 import numpy as np
